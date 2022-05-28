@@ -79,6 +79,23 @@ functions:
           path: /todos/delete
           method: ANY 
           cors: true
+      #books
+      - http:
+          path: /books/index
+          method: ANY 
+          cors: true
+      - http:
+          path: /books/add
+          method: ANY 
+          cors: true
+      - http:
+          path: /books/search
+          method: ANY 
+          cors: true
+      - http:
+          path: /books/sort
+          method: ANY 
+          cors: true
 
 resources:
   Resources:
@@ -87,16 +104,27 @@ resources:
       DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
-          -
-            AttributeName: id
+          - AttributeName: id
             AttributeType: S
         KeySchema:
-          -
-            AttributeName: id
+          - AttributeName: id
             KeyType: HASH
-        #ProvisionedThroughput:
-        #  ReadCapacityUnits: 1
-        #  WriteCapacityUnits: 1
         BillingMode: PAY_PER_REQUEST
         TableName: 'todos'
-
+    #books
+    BooksDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+#          - AttributeName: createdAt
+#            AttributeType: N            
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+#          - AttributeName: createdAt
+#            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        TableName: 'books'
